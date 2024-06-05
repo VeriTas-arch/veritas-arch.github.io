@@ -1,3 +1,3 @@
-# Test Page
+# Perface
 
-A test page for personal blog.
+This is the home page for personal blog.
