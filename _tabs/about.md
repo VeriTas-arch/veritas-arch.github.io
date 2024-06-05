@@ -4,5 +4,5 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
+> This site collects notes on the research insight during the investigation of different topics. Reading notes of papers and books are essential parts of the respoitory, while interesting subjects will also be discussed.
 {: .prompt-tip }
