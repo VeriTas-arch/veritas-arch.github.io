@@ -38,7 +38,7 @@ Sign in to GitHub and [**use this template**][use-template] to generate a brand 
 Then clone it to your local machine and run:
 
 ```console
-$ bundle
+bundle
 ```
 
 ## Usage
@@ -54,3 +54,11 @@ This work is published under [MIT][mit] License.
 [use-template]: https://github.com/cotes2020/chirpy-starter/generate
 [CD]: https://en.wikipedia.org/wiki/Continuous_deployment
 [mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+
+## Norm
+
++ post category: `paper`, `blog`
++ enmerate: 1 for CPGs
++ serial number of the paper
+
+for example, paper1-1 refers to the first paper in the category of CPGs.
