@@ -16,7 +16,7 @@ timezone: Asia/Shanghai
 
 title: VeriTas-arch # the main title
 
-tagline: A simple personal repository # it will display as the sub-title
+tagline: Have a cup of tea? # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   Collections of daily learning and researching.
