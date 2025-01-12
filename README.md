@@ -1,6 +1,6 @@
-[![Deploy Jekyll site to Pages](https://github.com/VeriTas-arch/veritas-arch.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/VeriTas-arch/veritas-arch.github.io/actions/workflows/jekyll.yml)
+# Preface
 
-# Perface
+[![Deploy Jekyll site to Pages](https://github.com/VeriTas-arch/veritas-arch.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/VeriTas-arch/veritas-arch.github.io/actions/workflows/jekyll.yml)
 
 Here we have a simple personal site with the [Chirpy][chirpy] theme. It's worth noting that although we have many alternatives, this theme is chosen for its simplicity and ease of use. After all, the site is merely a platform for sharing thoughts and ideas.
 
@@ -28,3 +28,6 @@ The source code is organized as follows, with the `_posts` directory containing 
 ├── _tabs
 └── index.html
 ```
+
+> [!TIP]
+> For more information, refer to [chirpy-readme](/chirpy-readme.md).
