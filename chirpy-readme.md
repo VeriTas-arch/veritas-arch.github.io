@@ -58,7 +58,7 @@ This work is published under [MIT][mit] License.
 ## Norm
 
 + post category: `paper`, `blog`
-+ enmerate: 1 for CPGs
++ enumerate: 1 for CPGs
 + serial number of the paper
 
 for example, paper1-1 refers to the first paper in the category of CPGs.
