@@ -8,7 +8,7 @@ Here we have a simple personal site with the [Chirpy][chirpy] theme. It's worth 
 
 With Jekyll installed, run the following commands to start the site locally.
 
-```ruby
+```bash
 jekyll clean
 jekyll build
 jekyll serve
@@ -18,14 +18,15 @@ jekyll serve
 
 ## Structure
 
-The source code is organized as follows, with the `_posts` directory containing all the blog posts.
+The source code that author should remember is organized as follows, with the `_posts` directory containing all the blog posts.
 
-```shell
+```bash
 .
-├── _config.yml
+├── _data
 ├── _posts
-├── _plugins
 ├── _tabs
+├── assets
+├── _config.yml
 └── index.html
 ```
 
