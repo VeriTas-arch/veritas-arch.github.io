@@ -1,6 +1,8 @@
 # Preface
 
-[![Deploy Jekyll site to Pages](https://github.com/VeriTas-arch/veritas-arch.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/VeriTas-arch/veritas-arch.github.io/actions/workflows/jekyll.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/VeriTas-arch/veritas-arch.github.io/jekyll.yml?style=flat-square&logo=githubactions&logoSize=auto&label=build%20and%20deploy&labelColor=24292e&color=0366d6)
+![GitHub last commit](https://img.shields.io/github/last-commit/VeriTas-arch/veritas-arch.github.io?display_timestamp=author&style=flat-square&logo=git&label=last%20update&color=fc6d26)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg?style=flat-square&logo=creativecommons)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Here we have a simple personal site with the [Chirpy][chirpy] theme. It's worth noting that although we have many alternatives, this theme is chosen for its simplicity and ease of use. After all, the site is merely a platform for sharing thoughts and ideas.
 
