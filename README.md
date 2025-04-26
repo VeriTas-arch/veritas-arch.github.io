@@ -33,4 +33,6 @@ The source code that author should remember is organized as follows, with the `_
 ```
 
 > [!TIP]
-> For more information, refer to [chirpy-readme](/chirpy-readme.md).
+> For more information, refer to the [chirpy documentation][chiirpy-docs].
+
+[chiirpy-docs]: https://chirpy.cotes.page/
