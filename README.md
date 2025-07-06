@@ -11,9 +11,7 @@ Here we have a simple personal site with the [Chirpy][chirpy] theme. It's worth 
 With Jekyll installed, run the following commands to start the site locally.
 
 ```bash
-jekyll clean
-jekyll build
-jekyll serve
+jekyll clean && jekyll build && jekyll serve
 ```
 
 [chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
