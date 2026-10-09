@@ -3,7 +3,7 @@ root = true
 [*]
 charset = utf-8
 indent_style = space
-indent_size = 2
+indent_size = 4
 trim_trailing_whitespace = true
 # Unix-style newlines with a newline ending every file
 end_of_line = lf
@@ -14,7 +14,7 @@ quote_type = single
 
 [*.{yml,yaml}]
 quote_type = double
-indent_size = 2
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false
