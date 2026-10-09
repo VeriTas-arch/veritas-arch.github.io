@@ -1,0 +1,31 @@
+---
+import MountainMark from "./MountainMark.astro";
+interface Props { section?: string }
+const { section } = Astro.props;
+const fontSizes = [17, 18, 19, 20, 21, 22, 23, 24, 25];
+---
+  <header class="site-header">
+    <a class="brand" href="/"><MountainMark class="brand-mark" /><span>Veritas</span></a>
+    <div class="header-right">
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class:list={{ current: section === "writing" }} aria-current={section === "writing" ? "page" : undefined} href="/">Writing</a>
+        <a class:list={{ current: section === "archive" }} aria-current={section === "archive" ? "page" : undefined} href="/archives/">Archive</a>
+        <a class:list={["about-link", { current: section === "about" }]} aria-current={section === "about" ? "page" : undefined} href="/about/"><MountainMark class="nav-mark" />About</a>
+      </nav>
+      <div class="reader-controls">
+        <details class="settings">
+          <summary aria-label="Reading settings" title="Reading settings">Aa</summary>
+          <div class="settings-panel">
+            <fieldset><legend>Typeface</legend><div class="setting-options"><button type="button" data-font="serif" aria-pressed="true">Serif</button><button type="button" data-font="sans" aria-pressed="false">Sans</button></div></fieldset>
+            <fieldset>
+              <legend><label for="text-size">Text size</label></legend>
+              <input class="size-slider" id="text-size" type="range" min="17" max="25" step="1" value="19" list="text-size-stops" aria-valuetext="19 pixels" />
+              <datalist id="text-size-stops">{fontSizes.map(size => <option value={size} />)}</datalist>
+              <div class="size-stops" aria-hidden="true">{fontSizes.map(size => <span>{size}</span>)}</div>
+            </fieldset>
+          </div>
+        </details>
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle color theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.1A8.4 8.4 0 0 1 9.9 4a8.4 8.4 0 1 0 10.1 10.1Z"/></svg></button>
+      </div>
+    </div>
+  </header>

@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import MountainMark from '../components/MountainMark.astro';
+---
+<Base title="About" section="about">
+  <main class="about-layout">
+    <MountainMark class="about-symbol" />
+    <div class="about-copy">
+      <header class="article-heading"><p class="eyebrow">About</p><h1>Veritas</h1><p class="about-description">Collections of daily learning and researching.</p></header>
+      <div class="article-body" id="article-content" tabindex="-1">
+        <p>This site collects notes on the research insight during the investigation of different topics. Reading notes of papers and books are essential parts of the repository, while interesting subjects will also be discussed.</p>
+        <h2 id="current-topics">Current topics</h2>
+        <ul><li>Mechanical Intelligence</li><li>Neurobotics</li><li>Bio-inspired Intelligence</li><li>Brain-inspired Computing</li></ul>
+      </div>
+      <a class="about-back" href="/">Read the notes ↗</a>
+    </div>
+  </main>
+</Base>

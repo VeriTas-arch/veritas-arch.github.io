@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { excerpt, formatDate, postUrl } from '../lib/posts';
+interface Props { posts: CollectionEntry<'posts'>[]; summaries?: boolean }
+const { posts, summaries = true } = Astro.props;
+---
+<ol class="post-list">
+  {posts.map(post => <li>
+    <div class="post-list-meta"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time><span>{post.data.categories.join(' / ')}</span></div>
+    <h2><a href={postUrl(post)}>{post.data.title}</a></h2>
+    {summaries && <p>{excerpt(post)}</p>}
+  </li>)}
+</ol>

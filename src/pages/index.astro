@@ -1,0 +1,10 @@
+---
+import Listing from '../layouts/Listing.astro';
+import PostList from '../components/PostList.astro';
+import { getPosts, siteDescription } from '../lib/posts';
+const posts = await getPosts();
+---
+<Listing title="Have a cup of tea?" description={siteDescription}>
+  <PostList posts={posts} />
+  <nav class="browse-links" aria-label="Browse writing"><a href="/archives/">All writing ↗</a><a href="/tags/">Tags</a><a href="/categories/">Categories</a></nav>
+</Listing>

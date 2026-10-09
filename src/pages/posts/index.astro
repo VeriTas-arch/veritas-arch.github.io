@@ -1,0 +1,7 @@
+---
+import Listing from '../../layouts/Listing.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/posts';
+const posts = await getPosts();
+---
+<Listing title="All writing"><PostList posts={posts} /></Listing>

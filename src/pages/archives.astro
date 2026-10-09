@@ -1,0 +1,12 @@
+---
+import Listing from '../layouts/Listing.astro';
+import PostList from '../components/PostList.astro';
+import { getPosts } from '../lib/posts';
+const posts = await getPosts();
+const yearOf = (date: Date) => new Intl.DateTimeFormat('en', { year: 'numeric', timeZone: 'Asia/Shanghai' }).format(date);
+const years = [...new Set(posts.map(post => yearOf(post.data.date)))];
+---
+<Listing title="Archive" eyebrow="All writing" section="archive">
+  {years.map(year => <section class="archive-year"><h2>{year}</h2><PostList posts={posts.filter(post => yearOf(post.data.date) === year)} summaries={false} /></section>)}
+  <nav class="browse-links" aria-label="Browse writing"><a href="/tags/">Tags</a><a href="/categories/">Categories</a></nav>
+</Listing>

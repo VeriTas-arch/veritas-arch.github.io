@@ -1,0 +1,16 @@
+---
+import Listing from '../../layouts/Listing.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts, slugify } from '../../lib/posts';
+import type { InferGetStaticPropsType } from 'astro';
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return (['tags', 'categories'] as const).flatMap(taxonomy => {
+    const terms = [...new Set(posts.flatMap(post => post.data[taxonomy]))];
+    return terms.map(term => ({ params: { taxonomy, slug: slugify(term) }, props: { taxonomy, term, posts: posts.filter(post => post.data[taxonomy].includes(term)) } }));
+  });
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { taxonomy, term, posts } = Astro.props;
+---
+<Listing title={term} eyebrow={taxonomy === 'tags' ? 'Tag' : 'Category'}><PostList posts={posts} /><nav class="browse-links" aria-label="Browse writing"><a href={`/${taxonomy}/`}>All {taxonomy} ↗</a></nav></Listing>

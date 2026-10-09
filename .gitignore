@@ -1,24 +1,11 @@
-# Bundler cache
-.bundle
-vendor
-Gemfile.lock
-
-# Jekyll cache
-.jekyll-cache
-.jekyll-metadata
-_site
-
-# RubyGems
-*.gem
-
-# NPM dependencies
+# Dependencies and generated files
 node_modules
-package-lock.json
+dist/
+.astro/
+public/assets/img/
+public/assets/mathjax/
+_design/
 
 # IDE configurations
 .idea
 .vscode/*
-
-# Misc
-_sass/vendors
-assets/js/dist

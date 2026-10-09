@@ -1,0 +1,31 @@
+---
+import { render } from 'astro:content';
+import type { InferGetStaticPropsType } from 'astro';
+import Base from '../../layouts/Base.astro';
+import Toc from '../../components/Toc.astro';
+import { getPosts, postUrl, slugify, formatDate, excerpt } from '../../lib/posts';
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, index) => ({ params: { slug: post.id }, props: { post, next: posts[index + 1] || posts[index - 1] } }));
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { post, next } = Astro.props;
+const { Content, headings } = await render(post);
+---
+<Base title={post.data.title} description={excerpt(post)} section="post" math={post.data.math}>
+  <main class="page"><article class="article-grid">
+    <header class="article-heading">
+      <p class="eyebrow">{post.data.categories.map((category, index) => <><span>{index > 0 && ' / '}<a href={`/categories/${slugify(category)}/`}>{category}</a></span></>)}</p>
+      <h1>{post.data.title}</h1>
+      <div class="article-meta"><span class="byline">Veritas</span><span class="separator" aria-hidden="true">/</span><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></div>
+      {headings.some(h => h.depth === 2) && <details class="mobile-toc"><summary>On this page</summary><Toc headings={headings} /></details>}
+    </header>
+    <aside class="reading-rail" aria-label="Reading navigation"><div class="rail-sticky"><p class="rail-label">On this page</p><Toc headings={headings} /><p class="rail-note">Have a cup of tea?</p></div></aside>
+    <div class="article-body" id="article-content" tabindex="-1"><Content /></div>
+    <footer class="article-end">
+      <div class="end-mark" aria-hidden="true">· · ·</div>
+      <nav class="post-topics" aria-label="Article tags">{post.data.tags.map(tag => <a href={`/tags/${slugify(tag)}/`}>{tag}</a>)}</nav>
+      {next && <a class="next-article" href={postUrl(next)}><small>Continue reading</small><span>{next.data.title} ↗</span></a>}
+    </footer>
+  </article></main>
+</Base>
