@@ -11,7 +11,6 @@
     --wash: #e6edeb;
     --code: #e7ecef;
     --violet: #756781;
-    --moss: #546f5c;
     --rose: #88616b;
     --mark-base: #64768c;
     --serif: Georgia, 'Times New Roman', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Songti SC', SimSun, serif;
@@ -30,7 +29,6 @@
     --wash: #1e2b32;
     --code: #1c2531;
     --violet: #b4add2;
-    --moss: #b0c5b5;
     --rose: #d5a9b5;
     --mark-base: #8292b3;
 }
@@ -108,9 +106,6 @@ h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(34px, 3.4vw, 4
 .article-body pre { padding: 20px; margin: 0; overflow-x: auto; font: 400 15px/1.65 var(--mono); tab-size: 4; }
 .article-body pre code { font: inherit; padding: 0; background: none; white-space: pre; overflow-wrap: normal; }
 .article-body pre, .article-body code { font-feature-settings: 'calt' 1, 'liga' 0, 'dlig' 0; }
-.article-body .c, .article-body .c1, .article-body .cm { color: var(--muted); font-style: italic; }
-.article-body .k, .article-body .kd, .article-body .nb, .article-body .o { color: var(--accent); }
-.article-body .s, .article-body .s2 { color: var(--moss); }
 .table-wrapper { overflow-x: auto; margin: 1.6em 0; border: 1px solid var(--line); border-radius: 4px; }
 .article-body table { width: 100%; border-collapse: collapse; font: 15px/1.6 var(--body-font); }
 .article-body th { text-align: left; background: var(--wash); font-weight: 600; }
