@@ -84,9 +84,23 @@ The script solves the symmetric equilibrium condition from Eq. (3.17) and classi
 
 `package.json` is the source of truth for the MathJax version; `package-lock.json` records the resolved installation. Keep the dependency pinned to an exact version and update both files with `npm install --save-exact mathjax@<version>`.
 
-Dev/build commands copy the installed browser assets through `scripts/prepare-assets.mjs`; `src/layouts/Base.astro` configures and loads the local MathJax entry point. For a major upgrade, check the upstream migration guide for changes to package directories, entry points, and font loading before updating these files. Keep required fonts and dynamically loaded components available locally.
+Dev/build commands copy the installed browser assets and the default New Computer Modern font through `scripts/prepare-assets.mjs`; `src/layouts/Base.astro` configures and loads the local MathJax entry point and font path. Font files, dynamic glyph data, and speech resources are served locally under `/assets/mathjax/`. For a major upgrade, check the [upstream migration guide](https://docs.mathjax.org/en/stable/upgrading/v3.html) for changes to package directories, entry points, and font loading before updating these files.
 
 After an upgrade, run the checks and build listed under Local development, then inspect `/posts/paper6/` in the browser. Verify that scripts and fonts load locally without errors, equation numbers and references resolve, figure-caption math renders, and wide formulas remain usable on mobile in both light and dark themes.
+
+## Font maintenance
+
+Shared typography uses common-character subsets of Source Sans Pro and Monaspace Neon, named Veritas Sans and Veritas Mono to respect their reserved font names. The original fonts and licenses remain in `public/assets/fonts/`; browsers load the complete fonts only when characters outside the subsets are needed. Font declarations in `src/styles/fonts.css` are bundled into the shared stylesheet.
+
+To regenerate the committed subsets and declarations:
+
+```sh
+python -m pip install -r scripts/requirements-fonts.txt
+python scripts/subset-fonts.py
+python -m unittest discover -s tests -p "test_font_subsets.py"
+```
+
+Normal dev/build commands use the committed font files without Python. The subsets preserve OpenType features and variable axes; they cover a reusable character range rather than the current articles' text.
 
 ## Migration notes
 

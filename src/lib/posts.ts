@@ -15,7 +15,8 @@ export function excerpt(post: CollectionEntry<'posts'>) {
         const clean = part.replace(/^>\s*/gm, '').trim();
         return clean && !/^(#|\{|\[|<|\$|`)/.test(clean);
     }) || '';
+    // Also discard unfinished tags at the end of the paragraph.
     const plain = paragraph.replace(/^>\s*/gm, '').replace(/\[([^\]]+)\](?:\([^)]*\)|\[[^\]]*\])/g, '$1')
-        .replace(/<[^>]*>/g, '').replace(/[*`_]/g, '').replace(/\s+/g, ' ').trim();
+        .replace(/<[^>]*(?:>|$)/g, '').replace(/[*`_]/g, '').replace(/\s+/g, ' ').trim();
     return plain.length > 210 ? `${plain.slice(0, 207).replace(/\s+\S*$/, '')}…` : plain;
 }

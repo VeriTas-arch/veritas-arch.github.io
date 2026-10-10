@@ -1,11 +1,5 @@
 
-@font-face {
-    font-family: 'Monaspace Neon';
-    src: url('/assets/fonts/monaspace-neon/MonaspaceNeonVar.woff2') format('woff2');
-    font-weight: 200 800;
-    font-style: oblique 0deg 11deg;
-    font-display: swap;
-}
+@import './fonts.css';
 
 :root {
     color-scheme: light;
@@ -21,8 +15,8 @@
     --rose: #88616b;
     --mark-base: #64768c;
     --serif: Georgia, 'Times New Roman', 'Noto Serif CJK SC', 'Source Han Serif SC', 'Songti SC', SimSun, serif;
-    --sans: 'Source Sans Pro', 'Segoe UI', 'Microsoft YaHei', sans-serif;
-    --mono: 'Monaspace Neon', Consolas, 'Cascadia Code', monospace;
+    --sans: 'Veritas Sans', 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    --mono: 'Veritas Mono', Consolas, 'Cascadia Code', monospace;
     --body-font: var(--serif);
     --body-size: 19px;
 }

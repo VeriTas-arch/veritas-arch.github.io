@@ -17,8 +17,6 @@ const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.u
     <title>{fullTitle}</title>
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/mountain-mark.svg" />
-    <link rel="stylesheet" href="/assets/fonts/source-sans-pro/main.css" />
-    <link rel="alternate" type="application/rss+xml" title={siteTitle} href="/feed.xml" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -36,6 +34,7 @@ const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.u
     {math && <>
       <script is:inline>
         window.MathJax = {
+          loader: { paths: { fonts: '/assets/mathjax/fonts' } },
           tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], tags: 'ams' },
           options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
         };
@@ -49,7 +48,7 @@ const canonical = new URL(Astro.url.pathname === '/404/' ? '/404.html' : Astro.u
     <slot />
     <footer class="site-footer">
       <span>© Veritas · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></span>
-      <span><a href="/feed.xml">RSS</a> · <a href="https://github.com/VeriTas-arch">GitHub</a></span>
+      <span><a href="https://github.com/VeriTas-arch">GitHub</a></span>
     </footer>
     <script src="../scripts/reader.js"></script>
     <script>

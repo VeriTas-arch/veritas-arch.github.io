@@ -1,1 +1,3 @@
 Source Sans Pro regular, semibold, and bold WOFF2 files, preserved without modification from [chirpy-static-assets](https://github.com/cotes2020/chirpy-static-assets/tree/2209ab5ebf325a8e82f1d14ac790a98ae071f588/fonts/Source_Sans_Pro). Upstream: [Adobe Source Sans](https://github.com/adobe-fonts/source-sans). See OFL.txt for the original license.
+
+`VeritasSans-*-latin.woff2` are generated common-character subsets, renamed to respect the reserved font name. They retain the original license and copyright notices. The original files remain available as fallbacks for other characters. Regenerate the subsets and their shared CSS with `scripts/subset-fonts.py`.

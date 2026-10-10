@@ -40,6 +40,10 @@ for (const route of ['posts/paper6/', 'posts/bic/', 'posts/ipex/', 'about/', 'ar
     assert.ok(documents.has(join(root, route, 'index.html')), `Preserve /${route}`);
 }
 const paper = documents.get(join(root, 'posts/paper6/index.html'));
+for (const stylesheet of paper('link[rel="stylesheet"]').toArray()) {
+    const css = await readFile(join(root, paper(stylesheet).attr('href')), 'utf8');
+    for (const [, font] of css.matchAll(/url\(["']?(\/assets\/fonts\/[^"')]+)["']?\)/g)) await stat(join(root, font));
+}
 assert.equal(paper('.math-display').length, 33);
 assert.equal(paper('#fig3-5 figcaption').length, 1);
 assert.equal(paper('#fig3-5 img').attr('src'), '/assets/img/paper6_fig3_5.svg');
@@ -50,9 +54,12 @@ assert.doesNotMatch(paper('.article-body').text(), /\{: \.prompt-/);
 const engineering = documents.get(join(root, 'posts/ipex/index.html'));
 assert.match(engineering('.article-meta time').text(), /April 24, 2025/);
 assert.ok(engineering('.copy-code').length > 0);
-const feed = load(await readFile(join(root, 'feed.xml'), 'utf8'), { xmlMode: true });
-const postPages = [...documents.keys()].filter(file => relative(root, file).replaceAll('\\', '/').match(/^posts\/[^/]+\/index\.html$/));
-assert.equal(feed('item').length, postPages.length);
 for (const file of ['sitemap.xml', 'sitemap-index.xml', 'sitemap-0.xml', 'robots.txt', '404.html', 'sw.min.js', 'assets/mathjax/tex-chtml.js', 'assets/fonts/monaspace-neon/MonaspaceNeonVar.woff2']) await stat(join(root, file));
+for (const file of [
+    'LICENSE', 'sre/speech-worker.js', 'sre/mathmaps/en.json',
+    'fonts/mathjax-newcm-font/chtml.js', 'fonts/mathjax-newcm-font/svg.js',
+    'fonts/mathjax-newcm-font/chtml/dynamic/arrows.js',
+    'fonts/mathjax-newcm-font/chtml/woff2/mjx-ncm-n.woff2',
+]) await stat(join(root, 'assets/mathjax', file));
 assert.deepEqual(errors, [], errors.join('\n'));
-console.log(`Verified ${htmlFiles.length} HTML pages and ${links} local links/assets; legacy routes, feed, equations, callouts and code controls passed.`);
+console.log(`Verified ${htmlFiles.length} HTML pages and ${links} local links/assets; legacy routes, equations, callouts and code controls passed.`);
