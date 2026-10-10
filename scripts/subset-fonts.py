@@ -1,4 +1,5 @@
 """Generate common-character webfonts; retain the originals as full fallbacks."""
+
 from pathlib import Path
 
 from fontTools import subset
@@ -9,9 +10,25 @@ FONTS = ROOT / "public/assets/fonts"
 UNICODE_RANGE = "U+0-FF,U+131,U+152-153,U+300-36F,U+2000-206F,U+20A0-20CF,U+2100-214F,U+2190-21FF"
 CODEPOINTS = subset.parse_unicodes(UNICODE_RANGE)
 SPECS = [
-    ("source-sans-pro", f"SourceSansPro-{style}", f"VeritasSans-{style}", "Veritas Sans", weight, "normal")
+    (
+        "source-sans-pro",
+        f"SourceSansPro-{style}",
+        f"VeritasSans-{style}",
+        "Veritas Sans",
+        weight,
+        "normal",
+    )
     for style, weight in [("Regular", "400"), ("SemiBold", "600"), ("Bold", "700")]
-] + [("monaspace-neon", "MonaspaceNeonVar", "VeritasMono", "Veritas Mono", "200 800", "oblique 0deg 11deg")]
+] + [
+    (
+        "monaspace-neon",
+        "MonaspaceNeonVar",
+        "VeritasMono",
+        "Veritas Mono",
+        "200 800",
+        "oblique 0deg 11deg",
+    )
+]
 
 
 def css_range(codepoints):
@@ -21,7 +38,9 @@ def css_range(codepoints):
             ranges[-1][1] = point
         else:
             ranges.append([point, point])
-    return ",".join(f"U+{start:X}" if start == end else f"U+{start:X}-{end:X}" for start, end in ranges)
+    return ",".join(
+        f"U+{start:X}" if start == end else f"U+{start:X}-{end:X}" for start, end in ranges
+    )
 
 
 def generate():
@@ -46,8 +65,12 @@ def generate():
             if record.nameID in (0, 7, 8, 9, 10, 11, 12, 13, 14):
                 continue
             value = record.toUnicode()
-            for old, new in [("Source Sans Pro", "Veritas Sans"), ("SourceSansPro", "VeritasSans"),
-                             ("Monaspace Neon Var", "Veritas Mono"), ("MonaspaceNeonVar", "VeritasMono")]:
+            for old, new in [
+                ("Source Sans Pro", "Veritas Sans"),
+                ("SourceSansPro", "VeritasSans"),
+                ("Monaspace Neon Var", "Veritas Mono"),
+                ("MonaspaceNeonVar", "VeritasMono"),
+            ]:
                 value = value.replace(old, new)
             record.string = value.encode(record.getEncoding())
         font.save(target)
@@ -55,16 +78,18 @@ def generate():
         font.close()
         print(f"{source.name}: {source.stat().st_size:,} -> {target.stat().st_size:,} bytes")
         for filename, unicode_range in [(source.name, full_range), (target.name, common_range)]:
-            css.extend([
-                "@font-face {",
-                f"    font-family: '{family}';",
-                f"    src: url('/assets/fonts/{directory}/{filename}') format('woff2');",
-                f"    font-weight: {weight};",
-                f"    font-style: {style};",
-                "    font-display: swap;",
-                f"    unicode-range: {unicode_range};",
-                "}",
-            ])
+            css.extend(
+                [
+                    "@font-face {",
+                    f"    font-family: '{family}';",
+                    f"    src: url('/assets/fonts/{directory}/{filename}') format('woff2');",
+                    f"    font-weight: {weight};",
+                    f"    font-style: {style};",
+                    "    font-display: swap;",
+                    f"    unicode-range: {unicode_range};",
+                    "}",
+                ]
+            )
     (ROOT / "src/styles/fonts.css").write_text("\n".join(css) + "\n", encoding="utf-8")
 
 

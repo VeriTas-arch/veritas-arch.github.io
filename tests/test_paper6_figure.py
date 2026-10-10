@@ -20,11 +20,11 @@ class BifurcationFigureTests(unittest.TestCase):
                 coupling, phase, stable = coupling[visible], phase[visible], stable[visible]
 
                 # Evaluate Eq. (3.17) directly, independently of its reduced form.
-                def field(x, y):
+                def field(x, y, detuning=detuning, coupling=coupling):
                     return np.array(
                         [
-                            detuning - 2 * np.sin(x) + np.sin(y) - coupling * np.sin(x + y),  # noqa: B023
-                            detuning + np.sin(x) - 2 * np.sin(y) - coupling * np.sin(x + y),  # noqa: B023
+                            detuning - 2 * np.sin(x) + np.sin(y) - coupling * np.sin(x + y),
+                            detuning + np.sin(x) - 2 * np.sin(y) - coupling * np.sin(x + y),
                         ]
                     )
 

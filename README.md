@@ -14,12 +14,15 @@ npm run dev
 Open `http://127.0.0.1:4321/`. For a production preview:
 
 ```sh
+python -m pip install -r scripts/requirements-lint.txt
 npm run check
 npm test
 npm run build
 npm run test:site
 npm run preview
 ```
+
+`npm test` runs Python lint and format checks with the pinned Ruff version before the JavaScript tests. Python 3.12+ is required for these checks; run them separately with `npm run test:ruff`. Rules and the 100-character line length are shared in `ruff.toml`. Lint checks ignore `noqa` suppressions. To apply formatting, run `python -m ruff format scripts tests`.
 
 Build output is `dist/`. GitHub Actions checks pull requests and deploys `main` to GitHub Pages. Pages must use **GitHub Actions** as its deployment source. See the [Astro deployment guide](https://docs.astro.build/en/guides/deploy/github/).
 

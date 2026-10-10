@@ -1,7 +1,7 @@
 """Validate character coverage, metrics, variable axes, and license metadata."""
 
-import runpy
 import re
+import runpy
 import unittest
 from pathlib import Path
 
@@ -17,7 +17,9 @@ class FontSubsetsTest(unittest.TestCase):
             path = re.search(r"url\('([^']+)'\)", block)[1]
             ranges = re.search(r"unicode-range:\s*([^;]+);", block)[1]
             with TTFont(CONFIG["ROOT"] / "public" / path.lstrip("/")) as font:
-                self.assertEqual(set(CONFIG["subset"].parse_unicodes(ranges)), set(font.getBestCmap()))
+                self.assertEqual(
+                    set(CONFIG["subset"].parse_unicodes(ranges)), set(font.getBestCmap())
+                )
 
     def test_subsets_preserve_common_characters_and_metrics(self):
         for directory, original, output, *_ in CONFIG["SPECS"]:
@@ -35,15 +37,21 @@ class FontSubsetsTest(unittest.TestCase):
                             full["hmtx"][source[codepoint]], small["hmtx"][subset[codepoint]]
                         )
                     if "fvar" in full:
-                        axes = lambda font: [
-                            (a.axisTag, a.minValue, a.defaultValue, a.maxValue)
-                            for a in font["fvar"].axes
-                        ]
+
+                        def axes(font):
+                            return [
+                                (a.axisTag, a.minValue, a.defaultValue, a.maxValue)
+                                for a in font["fvar"].axes
+                            ]
+
                         self.assertEqual(axes(full), axes(small))
                     for name_id in (0, 7, 13, 14):
-                        names = lambda font: {
-                            n.toUnicode() for n in font["name"].names if n.nameID == name_id  # noqa: B023
-                        }
+
+                        def names(font, name_id=name_id):
+                            return {
+                                n.toUnicode() for n in font["name"].names if n.nameID == name_id
+                            }
+
                         self.assertEqual(names(full), names(small))
                     for name in small["name"].names:
                         if name.nameID in (1, 3, 4, 6, 16, 25):
