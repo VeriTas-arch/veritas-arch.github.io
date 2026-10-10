@@ -123,6 +123,12 @@ h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(34px, 3.4vw, 4
 .article-body td, .article-body th { padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .article-body tr:last-child td { border-bottom: 0; }
 .article-body img { display: block; max-width: 100%; height: auto; margin: 2em auto; border-radius: 3px; }
+.article-figure { margin: 2em 0; scroll-margin-top: 24px; }
+.figure-media { overflow-x: auto; }
+.article-figure img { width: 100%; min-width: 480px; max-width: none; margin: 0; }
+.article-figure figcaption { margin-top: .5em; font: .85em/1.65 var(--body-font); color: var(--muted); }
+.article-figure figcaption strong { color: var(--ink); }
+.figure-source { display: block; margin-top: .4em; }
 .article-body mjx-container[display='true'] { overflow-x: auto; overflow-y: hidden; padding: 12px 2px; max-width: 100%; min-width: 0 !important; }
 .article-body mjx-container:not([display='true']) { overflow: visible; vertical-align: baseline; }
 .article-body mjx-container.math-overflow:not([display='true']) { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; padding-block: .25em; margin-block: .3em; }
@@ -211,4 +217,6 @@ h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(34px, 3.4vw, 4
   .article-body { font-size: 11pt; }
   h2, h3 { break-after: avoid; }
   pre { white-space: pre-wrap; }
+  .article-figure { break-inside: avoid; }
+  .article-figure img { min-width: 0; }
 }

@@ -40,7 +40,10 @@ for (const route of ['posts/paper6/', 'posts/bic/', 'posts/ipex/', 'about/', 'ar
   assert.ok(documents.has(join(root, route, 'index.html')), `Preserve /${route}`);
 }
 const paper = documents.get(join(root, 'posts/paper6/index.html'));
-assert.equal(paper('.math-display').length, 34);
+assert.equal(paper('.math-display').length, 33);
+assert.equal(paper('#fig3-5 figcaption').length, 1);
+assert.equal(paper('#fig3-5 img').attr('src'), '/assets/img/paper6_fig3_5.svg');
+assert.equal(paper('a[href="#fig3-5"]').length, 2);
 assert.equal(paper('blockquote[class*="prompt-"]').length, 7);
 assert.doesNotMatch(paper('.article-body').text(), /\{: \.prompt-/);
 const engineering = documents.get(join(root, 'posts/ipex/index.html'));

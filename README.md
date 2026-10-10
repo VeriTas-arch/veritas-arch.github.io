@@ -53,6 +53,29 @@ Use `$...$` for inline math. Put each `$$` display delimiter on its own line; Ma
 > Callout text, including **formatting** and $math$.
 ```
 
+Captioned figures use native HTML so the image, caption, and reference anchor stay together:
+
+```html
+<figure class="article-figure" id="fig-example">
+  <div class="figure-media" role="region" aria-label="Figure; scroll horizontally on small screens" tabindex="0">
+    <img src="/assets/img/example.svg" alt="Describe the information in the figure." width="720" height="480" loading="lazy">
+  </div>
+  <figcaption><strong>Figure 1.</strong> Caption and source attribution.</figcaption>
+</figure>
+```
+
+Reference it with `[Figure 1](#fig-example)`, rather than a MathJax equation label. Figures scroll within the article on small screens and captions follow the body font.
+
+The paper6 bifurcation diagram is reproducible with Python 3.12+:
+
+```sh
+python -m pip install -r scripts/requirements-figures.txt
+python scripts/generate-paper6-figure.py
+python -m unittest discover -s tests -p "test_*.py"
+```
+
+The script solves the symmetric equilibrium condition from Eq. (3.17) and classifies stability using both eigenvalues of the two-variable system. Nonzero detunings are illustrative, as stated in the caption. Its transparent SVG contains light/dark palettes selected through the embedding page's `color-scheme`; see [MDN's embedded SVG example](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme#embedded_elements). Commit the generated `assets/img/paper6_fig3_5.svg`; regular dev/build commands copy it without requiring Python. The original PNG is retained as a reference.
+
 ## Migration notes
 
 The local `_design/` study is ignored and is not published. The old Jekyll configuration, templates, Ruby dependencies, plugins, generated output, and Chirpy asset submodule have been removed. Articles remain in `_posts/` and are loaded by Astro; Ruby and Git submodules are no longer required.

@@ -2,6 +2,7 @@
 node_modules
 dist/
 .astro/
+__pycache__/
 public/assets/img/
 public/assets/mathjax/
 _design/
