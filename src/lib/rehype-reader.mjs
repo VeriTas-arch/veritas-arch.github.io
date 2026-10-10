@@ -1,4 +1,4 @@
-// The same code frame is used for every highlighted language.
+// Add shared reading controls to figures, tables, and code blocks.
 export default function rehypeReader() {
   return tree => {
     function walk(node) {
@@ -6,6 +6,20 @@ export default function rehypeReader() {
       node.children = node.children.map(child => {
         walk(child);
         if (child.type !== 'element') return child;
+        if (child.tagName === 'figure') {
+          child.properties.className = [...new Set([...(child.properties.className || []), 'article-figure'])];
+          child.children = child.children.map(media => {
+            const img = media.tagName === 'img' ? media :
+              media.tagName === 'p' && media.children.length === 1 && media.children[0].tagName === 'img' ? media.children[0] : null;
+            if (!img) return media;
+            img.properties.loading ??= 'lazy';
+            img.properties.decoding ??= 'async';
+            return element('div', {
+              className: ['figure-media'], role: 'region', tabIndex: 0,
+              ariaLabel: 'Figure; scroll horizontally on small screens',
+            }, [img]);
+          });
+        }
         if (child.tagName === 'table') {
           return element('div', { className: ['table-wrapper'], tabIndex: 0 }, [child]);
         }

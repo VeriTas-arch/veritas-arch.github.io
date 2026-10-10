@@ -19,6 +19,7 @@
         "@astrojs/rss": "^4.0.19",
         "@astrojs/sitemap": "^3.7.4",
         "astro": "^7.3.8",
+        "rehype-raw": "^7.0.0",
         "remark-math": "^6.0.0",
         "mathjax": "3.2.2"
     },

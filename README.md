@@ -53,18 +53,22 @@ Use `$...$` for inline math. Put each `$$` display delimiter on its own line; Ma
 > Callout text, including **formatting** and $math$.
 ```
 
-Captioned figures use native HTML so the image, caption, and reference anchor stay together:
+Captioned figures use standard HTML wrappers with Markdown inside:
 
-```html
-<figure class="article-figure" id="fig-example">
-  <div class="figure-media" role="region" aria-label="Figure; scroll horizontally on small screens" tabindex="0">
-    <img src="/assets/img/example.svg" alt="Describe the information in the figure." width="720" height="480" loading="lazy">
-  </div>
-  <figcaption><strong>Figure 1.</strong> Caption and source attribution.</figcaption>
+```md
+<figure id="fig-example">
+
+![Describe the information in the figure.](/assets/img/example.svg)
+
+<figcaption>
+
+**Figure 1.** Caption with *emphasis*, [links](https://example.com), and $math$.
+
+</figcaption>
 </figure>
 ```
 
-Reference it with `[Figure 1](#fig-example)`, rather than a MathJax equation label. Figures scroll within the article on small screens and captions follow the body font.
+Keep the blank lines around Markdown content so it is parsed inside the HTML wrappers. Reference the optional figure ID with `[Figure 1](#fig-example)`. The site adds shared figure styling, lazy loading, and a keyboard-accessible scrolling container; captions follow the body font. A native `<img>` can also be used when explicit image dimensions are needed.
 
 The paper6 bifurcation diagram is reproducible with Python 3.12+:
 
@@ -74,7 +78,7 @@ python scripts/generate-paper6-figure.py
 python -m unittest discover -s tests -p "test_*.py"
 ```
 
-The script solves the symmetric equilibrium condition from Eq. (3.17) and classifies stability using both eigenvalues of the two-variable system. Nonzero detunings are illustrative, as stated in the caption. Its transparent SVG contains light/dark palettes selected through the embedding page's `color-scheme`; see [MDN's embedded SVG example](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme#embedded_elements). Commit the generated `assets/img/paper6_fig3_5.svg`; regular dev/build commands copy it without requiring Python. The original PNG is retained as a reference.
+The script solves the symmetric equilibrium condition from Eq. (3.17) and classifies stability using both eigenvalues of the two-variable system. Nonzero detunings $\Omega/\alpha = \pm 0.15$ are illustrative and documented in the script. Its transparent SVG contains light/dark palettes selected through the embedding page's `color-scheme`; see [MDN's embedded SVG example](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme#embedded_elements). Commit the generated `assets/img/paper6_fig3_5.svg`; regular dev/build commands copy it without requiring Python. The original PNG is retained as a reference.
 
 ## Migration notes
 

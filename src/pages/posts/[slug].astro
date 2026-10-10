@@ -20,7 +20,7 @@ const { Content, headings } = await render(post);
       <div class="article-meta"><span class="byline">Veritas</span><span class="separator" aria-hidden="true">/</span><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></div>
       {headings.some(h => h.depth === 2) && <details class="mobile-toc"><summary>On this page</summary><Toc headings={headings} /></details>}
     </header>
-    <aside class="reading-rail" aria-label="Reading navigation"><div class="rail-sticky"><p class="rail-label">On this page</p><Toc headings={headings} /><p class="rail-note">Have a cup of tea?</p></div></aside>
+    <aside class="reading-rail" aria-label="Reading navigation"><div class="rail-sticky"><p class="rail-label">On this page</p><Toc headings={headings} /></div></aside>
     <div class="article-body" id="article-content" tabindex="-1"><Content /></div>
     <footer class="article-end">
       <div class="end-mark" aria-hidden="true">· · ·</div>

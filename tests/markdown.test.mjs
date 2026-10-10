@@ -4,10 +4,47 @@ import { readFile } from 'node:fs/promises';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { load } from 'cheerio';
 import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
 import remarkReader from '../src/lib/remark-reader.mjs';
 import rehypeReader from '../src/lib/rehype-reader.mjs';
 
-const processor = await createMarkdownProcessor({ remarkPlugins: [remarkMath, remarkReader], rehypePlugins: [rehypeReader], smartypants: false });
+const processor = await createMarkdownProcessor({ remarkPlugins: [remarkMath, remarkReader], rehypePlugins: [rehypeRaw, rehypeReader], smartypants: false });
+
+test('native figures preserve Markdown images, rich captions, math, and reference anchors', async () => {
+  const { code } = await processor.render('<figure id="diagram">\n\n![Phase branches](/diagram.svg)\n\n<figcaption>\n\n**Figure 1.** Stable $x_i$ with [details](https://example.com).\n\nAnother caption paragraph.\n\n</figcaption>\n</figure>\n\n[See figure](#diagram)\n\n![Ordinary image](/photo.png)');
+  const $ = load(code);
+  const figure = $('figure#diagram.article-figure');
+  assert.equal(figure.length, 1);
+  assert.equal(figure.find('.figure-media[role="region"][tabindex="0"] > img').length, 1);
+  const img = figure.find('img');
+  assert.equal(img.attr('src'), '/diagram.svg');
+  assert.equal(img.attr('alt'), 'Phase branches');
+  assert.equal(img.attr('loading'), 'lazy');
+  assert.equal(img.attr('decoding'), 'async');
+  assert.equal(figure.find('figcaption p').length, 2);
+  assert.equal(figure.find('figcaption strong').text(), 'Figure 1.');
+  assert.equal(figure.find('figcaption .math-inline').text(), String.raw`\(x_i\)`);
+  assert.equal(figure.find('figcaption a').attr('href'), 'https://example.com');
+  assert.equal($('a[href="#diagram"]').text(), 'See figure');
+  assert.equal($('img[src="/photo.png"]').parent().prop('tagName'), 'P');
+  assert.equal($('img[src="/photo.png"]').attr('loading'), undefined);
+});
+
+test('native figures accept reference images and preserve explicit HTML image attributes', async () => {
+  const { code } = await processor.render('<figure>\n\n![A plot][plot]\n\n<figcaption>Caption.</figcaption>\n</figure>\n\n[plot]: /plot.svg\n\n<figure class="custom"><img src="/other.svg" alt="Other plot" width="720" height="480" loading="eager" decoding="sync"><figcaption>Other caption.</figcaption></figure>');
+  const $ = load(code);
+  assert.equal($('figure img').attr('src'), '/plot.svg');
+  assert.equal($('figure img').attr('loading'), 'lazy');
+  assert.equal($('figure').attr('id'), undefined);
+  assert.equal($('figure img').attr('width'), undefined);
+  assert.equal($('figure.custom.article-figure .figure-media > img').length, 1);
+  const img = $('figure.custom img');
+  assert.equal(img.attr('alt'), 'Other plot');
+  assert.equal(img.attr('width'), '720');
+  assert.equal(img.attr('height'), '480');
+  assert.equal(img.attr('loading'), 'eager');
+  assert.equal(img.attr('decoding'), 'sync');
+});
 
 test('TeX survives Markdown with labels, backslashes, matrices, and inline references', async () => {
   const tex = String.raw`\begin{split}a&=b\\c&=d\end{split}\tag{1}\label{eq:1}`;
