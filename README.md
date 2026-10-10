@@ -80,11 +80,19 @@ python -m unittest discover -s tests -p "test_*.py"
 
 The script solves the symmetric equilibrium condition from Eq. (3.17) and classifies stability using both eigenvalues of the two-variable system. Nonzero detunings $\Omega/\alpha = \pm 0.15$ are illustrative and documented in the script. Its transparent SVG contains light/dark palettes selected through the embedding page's `color-scheme`; see [MDN's embedded SVG example](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme#embedded_elements). Commit the generated `assets/img/paper6_fig3_5.svg`; regular dev/build commands copy it without requiring Python. The original PNG is retained as a reference.
 
+## MathJax maintenance
+
+`package.json` is the source of truth for the MathJax version; `package-lock.json` records the resolved installation. Keep the dependency pinned to an exact version and update both files with `npm install --save-exact mathjax@<version>`.
+
+Dev/build commands copy the installed browser assets through `scripts/prepare-assets.mjs`; `src/layouts/Base.astro` configures and loads the local MathJax entry point. For a major upgrade, check the upstream migration guide for changes to package directories, entry points, and font loading before updating these files. Keep required fonts and dynamically loaded components available locally.
+
+After an upgrade, run the checks and build listed under Local development, then inspect `/posts/paper6/` in the browser. Verify that scripts and fonts load locally without errors, equation numbers and references resolve, figure-caption math renders, and wide formulas remain usable on mobile in both light and dark themes.
+
 ## Migration notes
 
 The local `_design/` study is ignored and is not published. The old Jekyll configuration, templates, Ruby dependencies, plugins, generated output, and Chirpy asset submodule have been removed. Articles remain in `_posts/` and are loaded by Astro; Ruby and Git submodules are no longer required.
 
-MathJax is pinned to 3.2.2. The Markdown math parser's transitive KaTeX dependency is overridden to 0.18.2 to include its security fix; browser rendering uses MathJax. Source Sans Pro files retain the previous site's font metrics and include their upstream provenance and license in `public/assets/fonts/source-sans-pro/`.
+The Markdown math parser's transitive KaTeX dependency has a security override in `package.json`; browser rendering uses MathJax. Source Sans Pro files retain the previous site's font metrics and include their upstream provenance and license in `public/assets/fonts/source-sans-pro/`.
 
 `public/sw.min.js` retires the former Chirpy service worker and removes only `chirpy-*` caches. Keep this URL available so returning visitors can update. This version does not install a new offline worker.
 
