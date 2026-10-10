@@ -1,6 +1,13 @@
 # Repository guide
 
-Veritas is a static Astro site for personal reading notes and research discussions. Keep README.md focused on the site and its readers; place development and maintenance instructions here.
+This repository contains a personal site for reading notes, research discussions, and other interests, built with Astro. Refer to it as "the site" or "this personal site" in maintenance prose; the owner's alias is not the site's name.
+
+## README and presentation
+
+- Treat the current README as the reference for the site's introduction and presentation. Preserve the author's personal wording unless a rewrite is requested.
+- Keep the centered mountain mark without an accompanying site-name heading or image caption. Preserve the existing introductory line and reading navigation.
+- Keep README.md focused on readers: the personal introduction, reading links, a brief repository pointer, and licensing. Put development, validation, and resource-maintenance instructions in this file.
+- Account names, repository URLs, and font-family identifiers are technical identifiers, not a source for the site's public name. Change them only when the task specifically requires it.
 
 ## Working conventions
 
