@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { load } from 'cheerio';
+import { unified } from 'unified';
 import remarkMath from 'remark-math';
 import rehypeRaw from 'rehype-raw';
-import remarkReader from '../src/lib/remark-reader.mjs';
-import rehypeReader from '../src/lib/rehype-reader.mjs';
+import remarkReader from '../src/lib/remark-reader.ts';
+import rehypeReader from '../src/lib/rehype-reader.ts';
 
 const processor = await createMarkdownProcessor({ remarkPlugins: [remarkMath, remarkReader], rehypePlugins: [rehypeRaw, rehypeReader], smartypants: false });
 
@@ -53,6 +54,17 @@ test('TeX survives Markdown with labels, backslashes, matrices, and inline refer
     assert.deepEqual($('.math-inline').map((_, el) => $(el).text()).get(), [String.raw`\(x_i\)`, String.raw`\(\eqref{eq:1}\)`]);
     assert.equal($('.math-display').text(), `\\[${tex}\\]`);
     assert.equal($('pre, code').length, 0);
+});
+
+test('generated math nodes without source positions retain their inline or display form', async () => {
+    const tree = await unified().use(remarkReader).run({
+        type: 'root', children: [
+            { type: 'paragraph', children: [{ type: 'inlineMath', value: 'x_i' }] },
+            { type: 'math', value: 'a=b' },
+        ],
+    });
+    assert.equal(tree.children[0].children[0].data.hChildren[0].value, String.raw`\(x_i\)`);
+    assert.equal(tree.children[1].data.hChildren[0].value, String.raw`\[a=b\]`);
 });
 
 test('GitHub alerts preserve rich content and remain separate', async () => {

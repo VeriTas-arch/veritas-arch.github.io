@@ -36,7 +36,7 @@ npm run build
 npm run test:site
 ```
 
-`npm test` runs Ruff lint/format checks and the JavaScript tests. `npm run test:ruff` runs only Ruff. Its version is pinned in `scripts/requirements-lint.txt`; `ruff.toml` defines the rules and 100-character line length. Fix violations rather than adding `noqa`: the lint command ignores suppressions. Apply formatting with `python -m ruff format scripts tests`.
+`npm test` runs Ruff lint/format checks and the JavaScript tests. Node's `--experimental-strip-types` flag lets the tests import the TypeScript Markdown plugins on the minimum supported Node 22.12; type checking remains the responsibility of `npm run check`. Keep these plugins compatible with type erasure (use type-only imports and avoid runtime TypeScript features such as enums). `npm run test:ruff` runs only Ruff. Its version is pinned in `scripts/requirements-lint.txt`; `ruff.toml` defines the rules and 100-character line length. Fix violations rather than adding `noqa`: the lint command ignores suppressions. Apply formatting with `python -m ruff format scripts tests`.
 
 Python functional tests are separate from `npm test`; their dependencies and commands are listed under resource maintenance below. For documentation-only changes, check Markdown formatting, links, and command/path accuracy.
 
@@ -53,7 +53,7 @@ GitHub Actions checks pull requests and deploys `main` to GitHub Pages. Pages mu
 | `src/pages/about.astro` | About text |
 | `src/components/`, `src/layouts/`, `src/pages/` | Shared UI, page layout, and routes |
 | `src/lib/` | Post helpers and Markdown transforms |
-| `src/styles/reader.css`, `src/scripts/reader.js` | Typography, themes, reading controls, contents navigation, and code copying |
+| `src/styles/reader.css`, `src/scripts/reader.ts` | Typography, themes, reading controls, contents navigation, and code copying |
 | `public/` | Directly served files, including committed fonts and generated asset directories |
 
 ## Article conventions

@@ -11,7 +11,7 @@
         "check": "astro check",
         "build": "npm run prepare:assets && astro build",
         "preview": "astro preview --host 127.0.0.1",
-        "test": "npm run test:ruff && node --test tests/*.test.mjs",
+        "test": "npm run test:ruff && node --experimental-strip-types --test tests/*.test.mjs",
         "test:ruff": "python -m ruff check scripts tests --ignore-noqa && python -m ruff format --check scripts tests",
         "test:site": "node scripts/check-site.mjs"
     },
@@ -25,8 +25,11 @@
     },
     "devDependencies": {
         "@astrojs/check": "^0.9.10",
+        "@types/hast": "^3.0.5",
+        "@types/mdast": "^4.0.4",
         "cheerio": "^1.2.0",
-        "typescript": "^6.0.3"
+        "typescript": "^6.0.3",
+        "unified": "^11.0.5"
     },
     "overrides": {
         "micromark-extension-math": {
